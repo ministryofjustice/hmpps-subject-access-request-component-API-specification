@@ -1,0 +1,93 @@
+openapi: 3.0.3
+info:
+  title: Subject Access Requests Endpoint
+  version: 1.0.0
+  contact:
+      name: SAR Support - Slack channel #ask-subject-access-requests
+      url: https://moj.enterprise.slack.com/archives/C0636R18BCL
+tags:
+  - name: Subject Access Requests
+    description: Endpoint
+    externalDocs:
+      url: https://ico.org.uk/for-the-public/crime/
+paths:
+  /subject-access-request:
+    get:
+      summary: API call to retrieve SAR data from a product
+      tags:
+        - Subject Access Requests
+      description: >
+        At least one of Prisoner Reference Number (PRN) or 
+        Case Reference Number (CRN) must be provided to the API (preferably both). 
+        The product receiving the request can decide which identifier to use 
+        based on it's internal usage.
+      parameters:
+        - $ref: "#/components/parameters/prisonerReferenceNumber"
+        - $ref: "#/components/parameters/caseReferenceNumber"
+        - $ref: "#/components/parameters/fromDate"
+        - $ref: "#/components/parameters/toDate"
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                additionalProperties: true
+        '204':
+          description: Request Successfully Processed - No content found
+        '400':
+          $ref: '#/components/responses/IncorrectRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorised'
+components:
+  responses:
+    IncorrectRequest:
+      description: The request was not formed correctly
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/errorResponse'
+    Unauthorised:
+      description: The client does not have authorisation to make this request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/errorResponse'
+  parameters:
+    prisonerReferenceNumber:
+      name: prn
+      description: NOMIS Prisoner Reference Number
+      in: query
+      schema:
+        type: string
+    caseReferenceNumber:
+      name: crn
+      description: nDelius Case Reference Number
+      in: query
+      schema:
+        type: string
+    fromDate:
+      name: fromDate
+      in: query
+      description: Optional parameter denoting minimum date of event occurrence for which should be returned in the response
+      schema:
+        type: string
+        format: date
+    toDate:
+      name: toDate
+      in: query
+      description: Optional parameter denoting maximum date of event occurrence for which should be returned in the response
+      schema:
+        type: string
+        format: date
+  schemas:
+    errorResponse:
+      properties:
+        developerMessage:
+          type: string
+        errorCode:
+          type: integer
+        status:
+          type: integer
+        userMessage:
+          type: string
