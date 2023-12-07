@@ -4,6 +4,5 @@
 
 This placeholder repository holds the draft specification for this endpoint
 
-Draft API Specification [![API docs][(https://img.shields.io/badge/API_docs-view-85EA2D.svg?logo=swagger)
-(https://editor.swagger.io/?url=https://raw.githubusercontent.com/ministryofjustice/curious-API/main/sar-component-api-spec.yaml)]
-
+Draft API Specification [![API docs](https://img.shields.io/badge/API_docs-view-85EA2D.svg?logo=swagger)]
+(https://editor.swagger.io/?url=https://raw.githubusercontent.com/ministryofjustice/curious-API/main/sar-component-api-spec.yaml)
