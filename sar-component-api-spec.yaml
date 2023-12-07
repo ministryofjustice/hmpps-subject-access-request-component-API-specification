@@ -1,13 +1,13 @@
 openapi: 3.0.3
 info:
-  title: Subject Access Requests Endpoint
+  title: SAR Component API endpoint Specification
   version: 1.0.0
   contact:
-      name: SAR Support - Slack channel #ask-subject-access-requests
+      name: SAR Support Slack channel #ask-subject-access-requests
       url: https://moj.enterprise.slack.com/archives/C0636R18BCL
 tags:
   - name: Subject Access Requests
-    description: Endpoint
+    description: Draft endpoint specification.
     externalDocs:
       url: https://ico.org.uk/for-the-public/crime/
 paths:
@@ -16,11 +16,11 @@ paths:
       summary: API call to retrieve SAR data from a product
       tags:
         - Subject Access Requests
-      description: >
-        At least one of Prisoner Reference Number (PRN) or 
-        Case Reference Number (CRN) must be provided to the API (preferably both). 
-        The product receiving the request can decide which identifier to use 
-        based on it's internal usage.
+      description: |
+        Either the Prisoner Reference Number (PRN) or Case Reference Number (CRN) must be provided as part of the request.
+        * If the product receiving the request uses the transmitted identifier type, it can respond with its data and HTTP code 200.
+        * If the product receiving the request does not use the transmitted identifier type, it should respond with HTTP code 204.
+
       parameters:
         - $ref: "#/components/parameters/prisonerReferenceNumber"
         - $ref: "#/components/parameters/caseReferenceNumber"
