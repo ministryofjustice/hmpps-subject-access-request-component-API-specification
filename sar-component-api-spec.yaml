@@ -1,15 +1,17 @@
 openapi: 3.0.3
 info:
-  title: SAR Component API endpoint Specification
+  title: SAR component API endpoint specification
   version: 1.0.0
+  description: |
+    Specification for the API endpoint which digital prison and probation products must provide to satisfy subject access
+    requests. The "Subject Access Request" product will this endpoint from each service in turn. It will collate teh response
+    into a single PDF file and make it available to HMPPS's SAR team a.k.a. the Branston team.
   contact:
       name: SAR Support Slack channel #ask-subject-access-requests
       url: https://moj.enterprise.slack.com/archives/C0636R18BCL
 tags:
   - name: Subject Access Requests
-    description: Draft endpoint specification.
-    externalDocs:
-      url: https://ico.org.uk/for-the-public/crime/
+    description: Endpoint specification
 paths:
   /subject-access-request:
     get:
