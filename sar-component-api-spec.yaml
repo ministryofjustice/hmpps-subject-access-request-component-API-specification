@@ -19,18 +19,18 @@ paths:
       tags:
         - Subject Access Request
       description: |
-        Either the Prisoner Reference Number (PRN) or Case Reference Number (CRN) must be provided as part of the request.
-        * If the product receiving the request uses the transmitted identifier type, it can respond with its data and HTTP code 200.
+        Either Nomis's Prison Number (PRN) or nDelius's Case Reference Number (CRN) must be provided as part of the request.
+        * If the product receiving the request uses the identifier type passed in the request, it can respond with its data and HTTP code 200.
         * If the product receiving the request does not use the transmitted identifier type, it should respond with HTTP code 204.
 
       parameters:
-        - $ref: "#/components/parameters/prisonerReferenceNumber"
+        - $ref: "#/components/parameters/prisonReferenceNumber"
         - $ref: "#/components/parameters/caseReferenceNumber"
         - $ref: "#/components/parameters/fromDate"
         - $ref: "#/components/parameters/toDate"
       responses:
         '200':
-          description: Successful response
+          description: Successful response with content
           content:
             application/json:
               schema:
@@ -56,9 +56,9 @@ components:
           schema:
             $ref: '#/components/schemas/errorResponse'
   parameters:
-    prisonerReferenceNumber:
+    prisonReferenceNumber:
       name: prn
-      description: NOMIS Prisoner Reference Number
+      description: NOMIS Prison Reference Number
       in: query
       schema:
         type: string
