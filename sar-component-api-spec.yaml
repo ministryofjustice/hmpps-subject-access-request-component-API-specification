@@ -4,20 +4,20 @@ info:
   version: 1.0.0
   description: |
     Specification for the API endpoint which digital prison and probation products must provide to satisfy subject access
-    requests. The "Subject Access Request" product will this endpoint from each service in turn. It will collate teh response
+    requests. The "Subject Access Request" product will call this endpoint for each service in turn. It will collate the response
     into a single PDF file and make it available to HMPPS's SAR team a.k.a. the Branston team.
   contact:
       name: SAR Support Slack channel #ask-subject-access-requests
       url: https://moj.enterprise.slack.com/archives/C0636R18BCL
 tags:
-  - name: Subject Access Requests
+  - name: Subject Access Request
     description: Endpoint specification
 paths:
   /subject-access-request:
     get:
       summary: API call to retrieve SAR data from a product
       tags:
-        - Subject Access Requests
+        - Subject Access Request
       description: |
         Either the Prisoner Reference Number (PRN) or Case Reference Number (CRN) must be provided as part of the request.
         * If the product receiving the request uses the transmitted identifier type, it can respond with its data and HTTP code 200.
@@ -71,14 +71,14 @@ components:
     fromDate:
       name: fromDate
       in: query
-      description: Optional parameter denoting minimum date of event occurrence for which should be returned in the response
+      description: Optional parameter denoting minimum date of event occurrence which should be returned in the response
       schema:
         type: string
         format: date
     toDate:
       name: toDate
       in: query
-      description: Optional parameter denoting maximum date of event occurrence for which should be returned in the response
+      description: Optional parameter denoting maximum date of event occurrence which should be returned in the response
       schema:
         type: string
         format: date
