@@ -5,7 +5,7 @@ info:
   description: |
     Specification for the API endpoint which digital prison and probation products must provide to satisfy subject access
     requests. The "Subject Access Request" product will call this endpoint for each service in turn. It will collate the response
-    into a single PDF file and make it available to HMPPS's SAR team a.k.a. the Branston team.
+    into a single PDF file and make it available to the SAR team a.k.a. the Branston team.
   contact:
       name: SAR Support Slack channel #ask-subject-access-requests
       url: https://moj.enterprise.slack.com/archives/C0636R18BCL
@@ -19,7 +19,7 @@ paths:
       tags:
         - Subject Access Request
       description: |
-        Either Nomis's Prison Number (PRN) or nDelius's Case Reference Number (CRN) must be provided as part of the request.
+        Either NOMIS Prison Number (PRN) or nDelius Case Reference Number (CRN) must be provided as part of the request.
         * If the product receiving the request uses the identifier type passed in the request, it can respond with its data and HTTP code 200.
         * If the product receiving the request does not use the transmitted identifier type, it should respond with HTTP code 204.
 
@@ -30,19 +30,21 @@ paths:
         - $ref: "#/components/parameters/toDate"
       responses:
         '200':
-          description: Successful response with content
-          content:
-            application/json:
-              schema:
-                additionalProperties: true
+          $ref: '#/components/responses/ContentFound'
         '204':
-          description: Request Successfully Processed - No content found
+          description: Request successfully processed - no content found
         '400':
           $ref: '#/components/responses/IncorrectRequest'
         '401':
           $ref: '#/components/responses/Unauthorised'
 components:
   responses:
+    ContentFound:
+      description: Request successfully processed - content found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/successResponse'
     IncorrectRequest:
       description: The request was not formed correctly
       content:
@@ -83,6 +85,11 @@ components:
         type: string
         format: date
   schemas:
+    successResponse:
+      properties:
+        content:
+          type: object
+          additionalProperties: true
     errorResponse:
       properties:
         developerMessage:
