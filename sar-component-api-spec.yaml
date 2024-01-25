@@ -20,8 +20,9 @@ paths:
         - Subject Access Request
       description: |
         Either NOMIS Prison Number (PRN) or nDelius Case Reference Number (CRN) must be provided as part of the request.
-        * If the product receiving the request uses the identifier type passed in the request, it can respond with its data and HTTP code 200.
-        * If the product receiving the request does not use the transmitted identifier type, it should respond with HTTP code 204.
+        * If the product uses the identifier type transmitted in the request, it can respond with its data and HTTP code 200.
+        * If the product uses the identifier type transmitted in the request but has no data to respond with, it should respond with HTTP code 204
+        * If the product does not use the identifier type transmitted in the request, it should respond with HTTP code 209.
 
       parameters:
         - $ref: "#/components/parameters/prisonReferenceNumber"
@@ -33,6 +34,8 @@ paths:
           $ref: '#/components/responses/ContentFound'
         '204':
           description: Request successfully processed - no content found
+        '209':
+          description: Subject Identifier is not recognised by this service
         '400':
           $ref: '#/components/responses/IncorrectRequest'
         '401':
