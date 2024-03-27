@@ -40,6 +40,8 @@ paths:
           $ref: '#/components/responses/IncorrectRequest'
         '401':
           $ref: '#/components/responses/Unauthorised'
+        '403':
+          $ref: '#/components/responses/Forbidden'
 components:
   responses:
     ContentFound:
@@ -55,7 +57,13 @@ components:
           schema:
             $ref: '#/components/schemas/errorResponse'
     Unauthorised:
-      description: The client does not have authorisation to make this request
+      description: The client does not have authorisation to make this request due to a missing/invalid token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/errorResponse'
+    Forbidden:
+      description: The client does not have authorisation to make this request due to insufficient permissions
       content:
         application/json:
           schema:
