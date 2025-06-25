@@ -135,3 +135,10 @@ components:
           type: number
           example: 23423
           description: The size of the file attachment in bytes
+      required:
+        - attachmentNumber
+        - name
+        - contentType
+        - url
+        - filename
+        - filesize
