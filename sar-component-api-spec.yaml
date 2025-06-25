@@ -93,6 +93,12 @@ components:
         content:
           type: object
           additionalProperties: true
+        attachments:
+          type: array
+          description: Optional list of file attachments
+          items: {
+            $ref: '#/components/schemas/attachment'
+          }
     errorResponse:
       properties:
         developerMessage:
@@ -103,3 +109,29 @@ components:
           type: integer
         userMessage:
           type: string
+    attachment:
+      properties:
+        attachmentNumber:
+          type: number
+          example: 1,
+          description: The number of the file attachment which will match any corresponding reference in the content section
+        name:
+          type: string
+          example: 'License condition: meetingAddress'
+          description: A name or description of the file attachment
+        contentType:
+          type: string
+          example: application/pdf
+          description: The content type of the file attachment
+        url:
+          type: string
+          example: https://my-service.hmpps.service.justice.gov.uk/download/exclusion-zone.pdf
+          description: The url to be used to download the file attachment
+        filename:
+          type: string
+          example: exclusion-zone.pdf
+          description: The filename of the file attachment
+        filesize:
+          type: number
+          example: 23423
+          description: The size of the file attachment in bytes
