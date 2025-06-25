@@ -113,7 +113,7 @@ components:
       properties:
         attachmentNumber:
           type: number
-          example: 1,
+          example: 1
           description: The number of the file attachment which will match any corresponding reference in the content section
         name:
           type: string
