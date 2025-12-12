@@ -31,7 +31,7 @@ paths:
         - $ref: "#/components/parameters/toDate"
       responses:
         '200':
-          $ref: '#/components/responses/ContentFound'
+          $ref: '#/components/responses/DataFound'
         '204':
           description: Request successfully processed - no content found
         '209':
@@ -40,14 +40,39 @@ paths:
           $ref: '#/components/responses/IncorrectRequest'
         '401':
           $ref: '#/components/responses/Unauthorised'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/UnexpectedError'
+  /subject-access-request/template:
+    get:
+      summary: API call to retrieve SAR template for product
+      tags:
+        - Subject Access Request
+      description: Returns the mustache template for this product to be used by the SAR service to generate the SAR report using the data provided by the /subject-access-request API
+      responses:
+        '200':
+          $ref: '#/components/responses/TemplateFound'
+        '401':
+          $ref: '#/components/responses/Unauthorised'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/UnexpectedError'
 components:
   responses:
-    ContentFound:
+    DataFound:
       description: Request successfully processed - content found
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/successResponse'
+            $ref: '#/components/schemas/dataResponse'
+    TemplateFound:
+      description: Request successfully processed - return template file content
+      content:
+        plain/text:
+          schema:
+            $ref: '#/components/schemas/templateResponse'
     IncorrectRequest:
       description: The request was not formed correctly
       content:
@@ -56,6 +81,18 @@ components:
             $ref: '#/components/schemas/errorResponse'
     Unauthorised:
       description: The client does not have authorisation to make this request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/errorResponse'
+    Forbidden:
+      description: Forbidden, requires an appropriate role
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/errorResponse'
+    UnexpectedError:
+      description: Unexpected error occurred
       content:
         application/json:
           schema:
@@ -88,7 +125,7 @@ components:
         type: string
         format: date
   schemas:
-    successResponse:
+    dataResponse:
       properties:
         content:
           type: object
@@ -99,6 +136,15 @@ components:
           items: {
             $ref: '#/components/schemas/attachment'
           }
+    templateResponse:
+      type: string
+      example: | 
+        <h1>Product Name</h1>
+        {{#.}}
+          {{#data}}
+            <h2>Data</h2>
+          {{/data}}
+        {{/.}}
     errorResponse:
       properties:
         developerMessage:
