@@ -180,11 +180,10 @@ components:
         filesize:
           type: number
           example: 23423
-          description: The size of the file attachment in bytes
+          description: The size of the file attachment in bytes (only used and required when the url above does not return a `Content-Length` header when called)
       required:
         - attachmentNumber
         - name
         - contentType
         - url
         - filename
-        - filesize
